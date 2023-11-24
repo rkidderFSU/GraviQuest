@@ -27,18 +27,22 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
             {
                 Physics2D.gravity = manager.gravityUp * manager.gravityMultiplier;
+                transform.rotation = Quaternion.Euler(0, 0, 180);
             }
             if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 Physics2D.gravity = manager.gravityLeft * manager.gravityMultiplier;
+                transform.rotation = Quaternion.Euler(0, 0, -90);
             }
             if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
             {
                 Physics2D.gravity = manager.gravityDown * manager.gravityMultiplier;
+                transform.rotation = Quaternion.Euler(0, 0, 0);
             }
             if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
             {
                 Physics2D.gravity = manager.gravityRight * manager.gravityMultiplier;
+                transform.rotation = Quaternion.Euler(0, 0, 90);
             }
         }
     }
