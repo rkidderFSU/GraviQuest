@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -17,33 +19,60 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ChangeGravity();
+        RotateWithGravity();
+
+        if (rb.velocity == Vector2.zero) // Can only change gravity if you are not moving
+        {
+            ChangeGravity();
+        }
+
+        if (Input.GetKeyUp(KeyCode.R))
+        {
+            RestartLevel();
+        }
     }
 
     public void ChangeGravity()
     {
-        if (rb.velocity == Vector2.zero) // Can only change gravity if you are not moving
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
-            if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
-            {
-                Physics2D.gravity = manager.gravityUp * manager.gravityMultiplier;
-                transform.rotation = Quaternion.Euler(0, 0, 180);
-            }
-            if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
-            {
-                Physics2D.gravity = manager.gravityLeft * manager.gravityMultiplier;
-                transform.rotation = Quaternion.Euler(0, 0, -90);
-            }
-            if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
-            {
-                Physics2D.gravity = manager.gravityDown * manager.gravityMultiplier;
-                transform.rotation = Quaternion.Euler(0, 0, 0);
-            }
-            if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
-            {
-                Physics2D.gravity = manager.gravityRight * manager.gravityMultiplier;
-                transform.rotation = Quaternion.Euler(0, 0, 90);
-            }
+            manager.SetGravityUp();
         }
+        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            manager.SetGravityLeft();
+        }
+        if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            manager.SetGravityDown();
+        }
+        if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            manager.SetGravityRight();
+        }
+    }
+    private void RotateWithGravity()
+    {
+        if (manager.gravUp)
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 180);
+        }
+        else if (manager.gravDown)
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+        else if (manager.gravLeft)
+        {
+            transform.rotation = Quaternion.Euler(0, 0, -90);
+        }
+        else if (manager.gravRight)
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 90);
+        }
+    }
+
+    private void RestartLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
