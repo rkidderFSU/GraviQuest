@@ -7,6 +7,7 @@ public class BlackHoleScript : MonoBehaviour
     private GameObject player;
     private GameManager m;
     public float blackHoleStrength;
+    public float gravityModifer;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +21,14 @@ public class BlackHoleScript : MonoBehaviour
         
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.attachedRigidbody.gravityScale == 1) // Fix for entering multiple black holes at once
+        {
+            collision.attachedRigidbody.gravityScale *= gravityModifer;
+        }
+    }
+
     private void OnTriggerStay2D(Collider2D collision)
     {
         Rigidbody2D rb = collision.GetComponent<Rigidbody2D>();
@@ -27,5 +36,13 @@ public class BlackHoleScript : MonoBehaviour
         float distance = Vector3.Distance(transform.position, collision.transform.position);
         float radius = GetComponent<CircleCollider2D>().radius;
         rb.AddForce(towardsBlackHole * m.gravityMultiplier * blackHoleStrength * (radius - distance)); // Force will get stronger the closer target object is
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.attachedRigidbody.gravityScale < 1)
+        {
+            collision.attachedRigidbody.gravityScale = 1;
+        }
     }
 }

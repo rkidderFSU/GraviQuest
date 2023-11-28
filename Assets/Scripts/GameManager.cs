@@ -14,12 +14,20 @@ public class GameManager : MonoBehaviour
     public bool gravRight;
     public bool gravUp;
     public bool gravDown;
+    public int level;
 
     // Start is called before the first frame update
     void Start()
     {
-        Physics2D.gravity = gravityDown * gravityMultiplier;
-        gravDown = true;
+        level = SceneManager.GetActiveScene().buildIndex + 1;
+        if (level == 1)
+        {
+            SetGravityDown();
+        }
+        else if (level == 2)
+        {
+            SetGravityRight();
+        }
     }
 
     // Update is called once per frame
