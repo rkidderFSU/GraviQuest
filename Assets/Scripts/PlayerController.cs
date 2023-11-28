@@ -7,13 +7,13 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     Rigidbody2D rb;
-    GameManager manager;
+    GameManager m;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        manager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+        m = GameObject.Find("Game Manager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.R))
         {
-            RestartLevel();
+            m.RestartLevel();
         }
     }
 
@@ -36,43 +36,38 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
-            manager.SetGravityUp();
+            m.SetGravityUp();
         }
         if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            manager.SetGravityLeft();
+            m.SetGravityLeft();
         }
         if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
         {
-            manager.SetGravityDown();
+            m.SetGravityDown();
         }
         if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
         {
-            manager.SetGravityRight();
+            m.SetGravityRight();
         }
     }
     private void RotateWithGravity()
     {
-        if (manager.gravUp)
+        if (m.gravUp)
         {
             transform.rotation = Quaternion.Euler(0, 0, 180);
         }
-        else if (manager.gravDown)
+        else if (m.gravDown)
         {
             transform.rotation = Quaternion.Euler(0, 0, 0);
         }
-        else if (manager.gravLeft)
+        else if (m.gravLeft)
         {
             transform.rotation = Quaternion.Euler(0, 0, -90);
         }
-        else if (manager.gravRight)
+        else if (m.gravRight)
         {
             transform.rotation = Quaternion.Euler(0, 0, 90);
         }
-    }
-
-    private void RestartLevel()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

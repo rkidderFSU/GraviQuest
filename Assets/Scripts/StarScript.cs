@@ -6,10 +6,11 @@ using UnityEngine.SceneManagement;
 
 public class StarScript : MonoBehaviour
 {
+    GameManager m;
     // Start is called before the first frame update
     void Start()
     {
-
+        m = GameObject.Find("Game Manager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -22,7 +23,7 @@ public class StarScript : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            StartCoroutine(LoadNextLevel());
+            StartCoroutine(m.LoadNextLevel());
         }
     }
 
@@ -32,11 +33,5 @@ public class StarScript : MonoBehaviour
         {
             collision.attachedRigidbody.velocity *= 0.1f;
         }
-    }
-
-    IEnumerator LoadNextLevel()
-    {
-        yield return new WaitForSeconds(1);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }
