@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
     Rigidbody2D rb;
     GameManager m;
+    public bool inBlackHole;
+    public bool inAnotherBlackHole;
+    public bool onPlatform;
 
     // Start is called before the first frame update
     void Start()
@@ -21,7 +23,7 @@ public class PlayerController : MonoBehaviour
     {
         RotateWithGravity();
 
-        if (rb.velocity == Vector2.zero) // Can only change gravity if you are not moving
+        if (onPlatform) // Can only change gravity if you are on a platform
         {
             ChangeGravity();
         }
@@ -37,18 +39,22 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
             m.SetGravityUp();
+            onPlatform = false;
         }
         if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
         {
             m.SetGravityLeft();
+            onPlatform = false;
         }
         if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
         {
             m.SetGravityDown();
+            onPlatform = false;
         }
         if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
         {
             m.SetGravityRight();
+            onPlatform = false;
         }
     }
     private void RotateWithGravity()
@@ -68,6 +74,14 @@ public class PlayerController : MonoBehaviour
         else if (m.gravRight)
         {
             transform.rotation = Quaternion.Euler(0, 0, 90);
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Platform"))
+        {
+            onPlatform = true;
         }
     }
 }
