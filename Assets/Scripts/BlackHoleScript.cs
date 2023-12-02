@@ -27,6 +27,10 @@ public class BlackHoleScript : MonoBehaviour
         {
             collision.attachedRigidbody.gravityScale *= gravityModifer;
             p.inBlackHole = true;
+          /*  if (m.level != 3) // Entering a black hole will reset the player's ability to change gravity, but only after the level they are introduced in.
+            {
+                p.canChangeGravity = true;
+            } */ // This may be too many forms of regaining control over gravity
         }
         else if (p.inBlackHole)
         {

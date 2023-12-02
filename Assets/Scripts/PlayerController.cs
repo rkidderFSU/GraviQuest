@@ -9,13 +9,17 @@ public class PlayerController : MonoBehaviour
     GameManager m;
     public bool inBlackHole;
     public bool inAnotherBlackHole;
-    public bool onPlatform;
+    public bool canChangeGravity;
+    AudioSource s;
+    public AudioClip gravitySound;
+    public AudioClip landingSound;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         m = GameObject.Find("Game Manager").GetComponent<GameManager>();
+        s = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -23,7 +27,7 @@ public class PlayerController : MonoBehaviour
     {
         RotateWithGravity();
 
-        if (onPlatform) // Can only change gravity if you are on a platform
+        if (canChangeGravity || rb.velocity == Vector2.zero)
         {
             ChangeGravity();
         }
@@ -38,23 +42,27 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
+            s.PlayOneShot(gravitySound, 1.0f);
             m.SetGravityUp();
-            onPlatform = false;
+            canChangeGravity = false;
         }
         if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
         {
+            s.PlayOneShot(gravitySound, 1.0f);
             m.SetGravityLeft();
-            onPlatform = false;
+            canChangeGravity = false;
         }
         if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
         {
+            s.PlayOneShot(gravitySound, 1.0f);
             m.SetGravityDown();
-            onPlatform = false;
+            canChangeGravity = false;
         }
         if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
         {
+            s.PlayOneShot(gravitySound, 1.0f);
             m.SetGravityRight();
-            onPlatform = false;
+            canChangeGravity = false;
         }
     }
     private void RotateWithGravity()
@@ -81,7 +89,8 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Platform"))
         {
-            onPlatform = true;
+            canChangeGravity = true;
+            s.PlayOneShot(landingSound, 1.0f);
         }
     }
 }

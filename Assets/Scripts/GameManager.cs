@@ -15,18 +15,24 @@ public class GameManager : MonoBehaviour
     public bool gravUp;
     public bool gravDown;
     public int level;
+    public bool levelComplete;
 
     // Start is called before the first frame update
     void Start()
     {
+        levelComplete = false;
         level = SceneManager.GetActiveScene().buildIndex + 1;
-        if (level == 1)
+        if (level == 1 || level == 3 || level == 4)
         {
             SetGravityDown();
         }
         else if (level == 2)
         {
             SetGravityRight();
+        }
+        else if (level == 5)
+        {
+            SetGravityUp();
         }
     }
 
@@ -75,7 +81,8 @@ public class GameManager : MonoBehaviour
     }
     public IEnumerator LoadNextLevel()
     {
-        yield return new WaitForSeconds(1);
+        levelComplete = true;
+        yield return new WaitForSeconds(3);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }

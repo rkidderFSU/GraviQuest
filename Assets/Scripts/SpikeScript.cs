@@ -14,7 +14,7 @@ public class SpikeScript : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision) // "Kills" the player if they collide with a spike
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player") && !m.levelComplete)
         {
             m.RestartLevel();
         }

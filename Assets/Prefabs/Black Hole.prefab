@@ -121,7 +121,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 5
+  m_Radius: 4
 --- !u!114 &4090477496461112291
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,7 +135,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blackHoleStrength: 0.7
-  gravityModifer: 0.075
+  gravityModifer: 0.2
 --- !u!1 &9056713903040556018
 GameObject:
   m_ObjectHideFlags: 0
