@@ -18,4 +18,4 @@ Thursday, 11/30 - 2 hours - Made sprites for platforms and spikes, and sound eff
  Friday, 12/1 - 8 hours - Coded all sound effects in.
 	Made Gravity Flipper and Gravity Spinner game objects that flip and spin your gravity respectively.
 	Also imported font assets and made a new sprite for the level border.
-	Made three new levels, but Level 4 is currently impossible.
+	Made three new levels that introduce new game mechanics, but Level 4 is currently impossible.
