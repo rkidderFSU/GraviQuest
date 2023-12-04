@@ -16,19 +16,31 @@ public class GameManager : MonoBehaviour
     public bool gravDown;
     public int level;
     public bool levelComplete;
+    AudioSource s;
 
     // Start is called before the first frame update
     void Start()
     {
+        s = GetComponent<AudioSource>();
+
         levelComplete = false;
-        level = SceneManager.GetActiveScene().buildIndex + 1;
-        if (level == 1 || level == 3 || level == 4)
+        level = SceneManager.GetActiveScene().buildIndex;
+
+        if (level == 0)
+        {
+            s.Play();
+        }
+        else if (level == 1 || level == 3 || level == 6 || level == 7)
         {
             SetGravityDown();
         }
         else if (level == 2)
         {
             SetGravityRight();
+        }
+        else if (level == 4)
+        {
+            SetGravityLeft();
         }
         else if (level == 5)
         {
@@ -79,10 +91,8 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
-    public IEnumerator LoadNextLevel()
+    public void LoadNextLevel()
     {
-        levelComplete = true;
-        yield return new WaitForSeconds(3);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }

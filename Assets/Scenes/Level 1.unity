@@ -681,6 +681,7 @@ MonoBehaviour:
   gravUp: 0
   gravDown: 0
   level: 0
+  levelComplete: 0
 --- !u!4 &1696333105
 Transform:
   m_ObjectHideFlags: 0

@@ -22,12 +22,14 @@ public class StarScript : MonoBehaviour
 
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private IEnumerator OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            m.levelComplete = true;
             sound.PlayOneShot(levelCompleteSound, 1.0f);
-            StartCoroutine(m.LoadNextLevel());
+            yield return new WaitForSeconds(3.0f);
+            m.LoadNextLevel();
         }
     }
 

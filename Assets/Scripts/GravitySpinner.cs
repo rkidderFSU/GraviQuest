@@ -8,7 +8,6 @@ public class GravitySpinner : MonoBehaviour
     public int interval;
     private GameManager m;
     AudioSource s;
-    PlayerController p;
     public AudioClip gravitySound;
     public TextMeshProUGUI intervalText;
 
@@ -17,7 +16,6 @@ public class GravitySpinner : MonoBehaviour
     {
         m = GameObject.Find("Game Manager").GetComponent<GameManager>();
         s = gameObject.GetComponent<AudioSource>();
-        p = GameObject.Find("Player").GetComponent<PlayerController>();
         StartCoroutine(RotateGravity());
     }
 
@@ -57,7 +55,6 @@ public class GravitySpinner : MonoBehaviour
             m.SetGravityUp();
         }
         s.PlayOneShot(gravitySound, 1.0f);
-        p.canChangeGravity = true;
         StartCoroutine(RotateGravity());
     }
 }
