@@ -19,3 +19,7 @@ Thursday, 11/30 - 2 hours - Made sprites for platforms and spikes, and sound eff
 	Made Gravity Flipper and Gravity Spinner game objects that flip and spin your gravity respectively.
 	Also imported font assets and made a new sprite for the level border.
 	Made three new levels that introduce new game mechanics, but Level 4 is currently impossible.
+
+ Sunday, 12/3 - 6 hours - New UI includes the title screen and a background asset for levels.
+ 	New one-way platforms make Level 4 possible.
+  	Made Levels 6 and 7.
