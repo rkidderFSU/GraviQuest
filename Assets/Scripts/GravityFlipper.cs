@@ -55,6 +55,7 @@ public class GravityFlipper : MonoBehaviour
         {
             m.SetGravityRight();
         }
+        yield return new WaitForSeconds(0.1f);
         p.canChangeGravity = true;
         s.PlayOneShot(gravitySound, 1.0f);
         StartCoroutine(FlipGravity());

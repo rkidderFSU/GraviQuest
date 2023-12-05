@@ -4904,7 +4904,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 138ecc9b2c5c79b4e950600b6ebae67d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -4928,7 +4928,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecb76e23ebe8e444b8b2285aab4fedea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sound: {fileID: 0}
   levelCompleteSound: {fileID: 8300000, guid: 51a57cdd038bdb741b451f4ea860b797, type: 3}
 --- !u!60 &2668816040836336548
 PolygonCollider2D:

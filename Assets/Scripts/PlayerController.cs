@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -22,6 +21,7 @@ public class PlayerController : MonoBehaviour
         m = GameObject.Find("Game Manager").GetComponent<GameManager>();
         s = GetComponent<AudioSource>();
         sr = GetComponent<SpriteRenderer>();
+        canChangeGravity = false;
     }
 
     // Update is called once per frame
@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
         RotateWithGravity();
         ChangeColor();
 
-        if ((canChangeGravity || rb.velocity == Vector2.zero) && !m.levelComplete)
+        if (canChangeGravity && !m.levelComplete)
         {
             ChangeGravity();
         }
@@ -93,7 +93,7 @@ public class PlayerController : MonoBehaviour
     }
     private void ChangeColor()
     {
-        if (canChangeGravity || ((rb.velocity == Vector2.zero) && !m.levelComplete))
+        if (canChangeGravity) // || ((rb.velocity == Vector2.zero) && !m.levelComplete))
         {
             sr.color = Color.white;
         }
@@ -105,10 +105,9 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Platform") && !m.levelComplete && (rb.velocity.magnitude <= 0.1f))
+        if (collision.gameObject.CompareTag("Platform") && !m.levelComplete && (rb.velocity.magnitude <= 2.0f))
         {
             canChangeGravity = true;
-            sr.color = Color.white;
             if (s.isPlaying)
             {
                 s.Stop();
@@ -118,6 +117,18 @@ public class PlayerController : MonoBehaviour
             {
                 s.PlayOneShot(landingSound, 1.0f);
             }
+        }
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Platform") && !m.levelComplete && (rb.velocity.magnitude == 0))
+        {
+            canChangeGravity = true;
+        }
+        else if (collision.gameObject.CompareTag("Platform") && !m.levelComplete && (rb.velocity.magnitude > 0))
+        {
+            canChangeGravity = false;
         }
     }
 }

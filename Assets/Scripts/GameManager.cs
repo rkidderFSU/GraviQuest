@@ -51,7 +51,17 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (Input.GetKeyUp(KeyCode.Escape))
+        {
+            if (level != 0) // Go back to the title screen
+            {
+                SceneManager.LoadScene(0);
+            }
+            else
+            {
+                Application.Quit();
+            }
+        }
     }
 
     public void SetGravityLeft()
