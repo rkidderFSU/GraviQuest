@@ -55,8 +55,9 @@ public class GravityFlipper : MonoBehaviour
         {
             m.SetGravityRight();
         }
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.05f);
         p.canChangeGravity = true;
+        p.changedGravity = false; // Resets the player's ability to change gravity
         s.PlayOneShot(gravitySound, 1.0f);
         StartCoroutine(FlipGravity());
     }

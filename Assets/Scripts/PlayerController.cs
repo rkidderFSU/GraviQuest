@@ -12,7 +12,10 @@ public class PlayerController : MonoBehaviour
     AudioSource s;
     public AudioClip gravitySound;
     public AudioClip landingSound;
-    public SpriteRenderer sr;
+    private SpriteRenderer sr;
+    public bool changedGravity;
+    private float previousVelocity;
+    private float currentVelocity;
 
     // Start is called before the first frame update
     void Start()
@@ -27,10 +30,12 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        previousVelocity = currentVelocity;
+        currentVelocity = rb.velocity.magnitude;
         RotateWithGravity();
         ChangeColor();
 
-        if (canChangeGravity && !m.levelComplete)
+        if (canChangeGravity && !m.levelComplete && !changedGravity)
         {
             ChangeGravity();
         }
@@ -48,6 +53,7 @@ public class PlayerController : MonoBehaviour
             s.PlayOneShot(gravitySound, 1.0f);
             m.SetGravityUp();
             canChangeGravity = false;
+            changedGravity = true;
             sr.color = new Color(0.75f, 0.75f, 0.75f, 1);
         }
         if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
@@ -55,6 +61,7 @@ public class PlayerController : MonoBehaviour
             s.PlayOneShot(gravitySound, 1.0f);
             m.SetGravityLeft();
             canChangeGravity = false;
+            changedGravity = true;
             sr.color = new Color(0.75f, 0.75f, 0.75f, 1);
         }
         if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
@@ -62,6 +69,7 @@ public class PlayerController : MonoBehaviour
             s.PlayOneShot(gravitySound, 1.0f);
             m.SetGravityDown();
             canChangeGravity = false;
+            changedGravity = true;
             sr.color = new Color(0.75f, 0.75f, 0.75f, 1);
         }
         if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
@@ -69,6 +77,7 @@ public class PlayerController : MonoBehaviour
             s.PlayOneShot(gravitySound, 1.0f);
             m.SetGravityRight();
             canChangeGravity = false;
+            changedGravity = true;
             sr.color = new Color(0.75f, 0.75f, 0.75f, 1);
         }
     }
@@ -93,11 +102,11 @@ public class PlayerController : MonoBehaviour
     }
     private void ChangeColor()
     {
-        if (canChangeGravity) // || ((rb.velocity == Vector2.zero) && !m.levelComplete))
+        if (canChangeGravity && !changedGravity)
         {
             sr.color = Color.white;
         }
-        else if (!canChangeGravity && rb.velocity.magnitude > 0)
+        else if ((!canChangeGravity || changedGravity) && rb.velocity.magnitude > 0)
         {
             sr.color = new Color(0.75f, 0.75f, 0.75f, 1);
         } 
@@ -108,10 +117,25 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Platform") && !m.levelComplete && (rb.velocity.magnitude <= 2.0f))
         {
             canChangeGravity = true;
+            changedGravity = false;
             if (s.isPlaying)
             {
                 s.Stop();
+                s.PlayOneShot(landingSound, 1.0f); // to prevent double sound playing if colliding with two platforms at once
+            }
+            else
+            {
                 s.PlayOneShot(landingSound, 1.0f);
+            }
+        }
+        else if (collision.gameObject.CompareTag("OWPlatform") && !m.levelComplete && (rb.velocity.magnitude <= 1f))
+        {
+            canChangeGravity = true;
+            changedGravity = false;
+            if (s.isPlaying)
+            {
+                s.Stop();
+                s.PlayOneShot(landingSound, 1.0f); // to prevent double sound playing if colliding with two platforms at once
             }
             else
             {
@@ -120,13 +144,40 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnCollisionStay2D(Collision2D collision)
+    private void OnCollisionStay2D(Collision2D collision) // Wacky platform collision
     {
         if (collision.gameObject.CompareTag("Platform") && !m.levelComplete && (rb.velocity.magnitude == 0))
         {
             canChangeGravity = true;
+            changedGravity = false;
         }
-        else if (collision.gameObject.CompareTag("Platform") && !m.levelComplete && (rb.velocity.magnitude > 0))
+        else if (collision.gameObject.CompareTag("Platform") && !m.levelComplete && (rb.velocity.magnitude > 0) && !changedGravity)
+        {
+            canChangeGravity = true;
+        }
+        else if (collision.gameObject.CompareTag("Platform") && !m.levelComplete && (rb.velocity.magnitude > 0) && changedGravity)
+        {
+            canChangeGravity = false;
+        }
+        if (collision.gameObject.CompareTag("OWPlatform") && !m.levelComplete && previousVelocity == 0 && currentVelocity == 0)
+        {
+            canChangeGravity = true;
+            changedGravity = false;
+        }
+        else if (collision.gameObject.CompareTag("OWPlatform") && !m.levelComplete && changedGravity)
+        {
+            canChangeGravity = false;
+        }
+        else if (collision.gameObject.CompareTag("OWPlatform") && !m.levelComplete && !changedGravity)
+        {
+            canChangeGravity = true;
+            changedGravity = false;
+        } 
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("OWPlatform") && !m.levelComplete && changedGravity)
         {
             canChangeGravity = false;
         }
