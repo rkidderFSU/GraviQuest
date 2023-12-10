@@ -14,8 +14,6 @@ public class PlayerController : MonoBehaviour
     public AudioClip landingSound;
     private SpriteRenderer sr;
     public bool changedGravity;
-    private float previousVelocity;
-    private float currentVelocity;
 
     // Start is called before the first frame update
     void Start()
@@ -30,8 +28,6 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        previousVelocity = currentVelocity;
-        currentVelocity = rb.velocity.magnitude;
         RotateWithGravity();
         ChangeColor();
 
@@ -109,7 +105,7 @@ public class PlayerController : MonoBehaviour
         else if ((!canChangeGravity || changedGravity) && rb.velocity.magnitude > 0)
         {
             sr.color = new Color(0.75f, 0.75f, 0.75f, 1);
-        } 
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -128,7 +124,7 @@ public class PlayerController : MonoBehaviour
                 s.PlayOneShot(landingSound, 1.0f);
             }
         }
-        else if (collision.gameObject.CompareTag("OWPlatform") && !m.levelComplete && (rb.velocity.magnitude <= 1f))
+        else if (collision.gameObject.CompareTag("OWPlatform") && !m.levelComplete && (rb.velocity.magnitude <= 2.0f))
         {
             canChangeGravity = true;
             changedGravity = false;
@@ -146,33 +142,32 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D collision) // Wacky platform collision
     {
-        if (collision.gameObject.CompareTag("Platform") && !m.levelComplete && (rb.velocity.magnitude == 0))
+        if (collision.gameObject.CompareTag("Platform") && !m.levelComplete && (rb.velocity.magnitude <= 0.01f))
         {
             canChangeGravity = true;
             changedGravity = false;
         }
-        else if (collision.gameObject.CompareTag("Platform") && !m.levelComplete && (rb.velocity.magnitude > 0) && !changedGravity)
+        else if (collision.gameObject.CompareTag("Platform") && !m.levelComplete && (rb.velocity.magnitude > 0.01f) && !changedGravity)
         {
             canChangeGravity = true;
         }
-        else if (collision.gameObject.CompareTag("Platform") && !m.levelComplete && (rb.velocity.magnitude > 0) && changedGravity)
+        else if (collision.gameObject.CompareTag("Platform") && !m.levelComplete && (rb.velocity.magnitude > 0.01f) && changedGravity)
         {
             canChangeGravity = false;
         }
-        if (collision.gameObject.CompareTag("OWPlatform") && !m.levelComplete && previousVelocity == 0 && currentVelocity == 0)
+        if (collision.gameObject.CompareTag("OWPlatform") && !m.levelComplete && rb.velocity.magnitude == 0)
         {
             canChangeGravity = true;
             changedGravity = false;
         }
-        else if (collision.gameObject.CompareTag("OWPlatform") && !m.levelComplete && changedGravity)
+        else if (collision.gameObject.CompareTag("OWPlatform") && !m.levelComplete && changedGravity && (rb.velocity.magnitude > 0))
         {
             canChangeGravity = false;
         }
         else if (collision.gameObject.CompareTag("OWPlatform") && !m.levelComplete && !changedGravity)
         {
             canChangeGravity = true;
-            changedGravity = false;
-        } 
+        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
