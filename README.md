@@ -25,3 +25,7 @@ Thursday, 11/30 - 2 hours - Made sprites for platforms and spikes, and sound eff
   	Made Levels 6 and 7.
 
 Tuesday, 12/5 - 1 hour - Player's color now correctly reflects their ability to change gravity.
+
+Thursday, 12/7 and Sunday, 12/10 - 2 hours - Fixed a game-breaking bug involving collision on one-way platforms.
+
+Monday, 12/11 - 2 hours - Made a new level between 4 and 5 to better introduce the Gravity Flipper. Messed around with Sorting Layers and Order in Layer, but the player and objective item still disappear on the build version.
