@@ -26,11 +26,13 @@ public class GameManager : MonoBehaviour
         levelComplete = false;
         level = SceneManager.GetActiveScene().buildIndex;
 
+        // Play music on the main menu screen
         if (level == 0)
         {
             s.Play();
         }
-        else if (level == 1 || level == 3 || level == 6 || level == 7)
+        // Different gravity settings per level
+        else if (level == 1 || level == 3 || level == 5 || level == 7 || level == 8)
         {
             SetGravityDown();
         }
@@ -42,7 +44,7 @@ public class GameManager : MonoBehaviour
         {
             SetGravityLeft();
         }
-        else if (level == 5)
+        else if (level == 6)
         {
             SetGravityUp();
         }

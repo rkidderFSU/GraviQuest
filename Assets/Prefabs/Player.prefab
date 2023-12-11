@@ -74,9 +74,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 5
+  m_SortingLayerID: -16551413
+  m_SortingLayer: 3
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 2db6cb4c8ae4e9345886fb75409b4962, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -177,7 +177,7 @@ MonoBehaviour:
   canChangeGravity: 0
   gravitySound: {fileID: 8300000, guid: dd28fb9cf536db348b5493e607ecdacf, type: 3}
   landingSound: {fileID: 8300000, guid: 86676e7c608a9a14e8d5883dba107feb, type: 3}
-  sr: {fileID: 0}
+  changedGravity: 0
 --- !u!82 &6172733217630223049
 AudioSource:
   m_ObjectHideFlags: 0

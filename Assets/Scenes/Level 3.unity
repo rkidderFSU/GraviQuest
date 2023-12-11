@@ -247,7 +247,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2088489685488074199, guid: 29722ac56045612429d067b12a94fcb8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2088489685488074199, guid: 29722ac56045612429d067b12a94fcb8, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1000,6 +1000,7 @@ MonoBehaviour:
   gravUp: 0
   gravDown: 0
   level: 0
+  levelComplete: 0
 --- !u!4 &1696333105
 Transform:
   m_ObjectHideFlags: 0
