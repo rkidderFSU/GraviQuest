@@ -23,3 +23,5 @@ Thursday, 11/30 - 2 hours - Made sprites for platforms and spikes, and sound eff
  Sunday, 12/3 - 6 hours - New UI includes the title screen and a background asset for levels.
  	New one-way platforms make Level 4 possible.
   	Made Levels 6 and 7.
+
+Tuesday, 12/5 - 1 hour - Player's color now correctly reflects their ability to change gravity.
