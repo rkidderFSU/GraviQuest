@@ -469,7 +469,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: -1
   far clip plane: 1000
   field of view: 60
   orthographic: 1
@@ -1313,7 +1313,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Getting a bit more tricky now...
+  m_text: You can change gravity after you get Flipped as long as you remain on a
+    wall.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c5ef08d081006ce4b830678bf6d1520b, type: 2}
   m_sharedMaterial: {fileID: -5295269147424766170, guid: c5ef08d081006ce4b830678bf6d1520b, type: 2}
