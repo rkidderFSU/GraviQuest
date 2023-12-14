@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class GravityFlipper : MonoBehaviour
 {
-    public int interval;
+    public float interval;
     private GameManager m;
     AudioSource s;
     PlayerController p;
@@ -32,12 +32,12 @@ public class GravityFlipper : MonoBehaviour
 
     IEnumerator FlipGravity()
     {
-        int seconds = interval;
-        for (int i = interval; i > 0; i--)
+        float seconds = interval;
+        for (float i = interval; i > 0; i -= Time.deltaTime)
         {
-            intervalText.text = seconds.ToString();
-            yield return new WaitForSeconds(1);
-            seconds--;
+            intervalText.text = seconds.ToString("#.##");
+            yield return new WaitForSeconds(Time.deltaTime);
+            seconds -= Time.deltaTime;
         }
         if (m.gravUp)
         {
