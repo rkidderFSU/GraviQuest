@@ -29,3 +29,7 @@ Tuesday, 12/5 - 1 hour - Player's color now correctly reflects their ability to 
 Thursday, 12/7 and Sunday, 12/10 - 2 hours - Fixed a game-breaking bug involving collision on one-way platforms.
 
 Monday, 12/11 - 2 hours - Made a new level between 4 and 5 to better introduce the Gravity Flipper. Messed around with Sorting Layers and Order in Layer, but the player and objective item still disappear on the build version.
+
+Tuesday, 12/12 - 1 hour - Fixed the build rendering bug.
+
+Wednesday, 12/13 - 
