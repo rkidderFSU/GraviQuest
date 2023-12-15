@@ -31,12 +31,12 @@ public class GameManager : MonoBehaviour
         {
             s.Play();
         }
-        // Different gravity settings per level
-        else if (level == 1 || level == 3 || level == 5 || level == 7 || level == 8)
+        // Different gravity settings for each level
+        else if (level == 1 || level == 3 || level == 6 || level == 7 || level == 9 || level == 10)
         {
             SetGravityDown();
         }
-        else if (level == 2)
+        else if (level == 2 || level == 8)
         {
             SetGravityRight();
         }
@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
         {
             SetGravityLeft();
         }
-        else if (level == 6)
+        else if (level == 5)
         {
             SetGravityUp();
         }
@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
         {
             if (level != 0) // Go back to the title screen
             {
-                SceneManager.LoadScene(0);
+                ResetGame();
             }
             else
             {
@@ -106,5 +106,9 @@ public class GameManager : MonoBehaviour
     public void LoadNextLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+    public void ResetGame()
+    {
+        SceneManager.LoadScene(0);
     }
 }

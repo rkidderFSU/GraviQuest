@@ -11,6 +11,7 @@ public class GravityFlipper : MonoBehaviour
     PlayerController p;
     public AudioClip gravitySound;
     public TextMeshProUGUI intervalText;
+    private SpriteRenderer levelBorder;
 
     // Start is called before the first frame update
     void Start()
@@ -18,6 +19,7 @@ public class GravityFlipper : MonoBehaviour
         m = GameObject.Find("Game Manager").GetComponent<GameManager>();
         s = gameObject.GetComponent<AudioSource>();
         p = GameObject.Find("Player").GetComponent<PlayerController>();
+        levelBorder = GameObject.Find("Level Border").GetComponent<SpriteRenderer>();
         StartCoroutine(FlipGravity());
     }
 
@@ -36,7 +38,7 @@ public class GravityFlipper : MonoBehaviour
         for (float i = interval; i > 0; i -= Time.deltaTime)
         {
             intervalText.text = seconds.ToString("#.##");
-            yield return new WaitForSeconds(Time.deltaTime);
+            yield return new WaitForEndOfFrame();
             seconds -= Time.deltaTime;
         }
         if (m.gravUp)
@@ -60,5 +62,13 @@ public class GravityFlipper : MonoBehaviour
         p.changedGravity = false; // Resets the player's ability to change gravity
         s.PlayOneShot(gravitySound, 1.0f);
         StartCoroutine(FlipGravity());
+        StartCoroutine(ChangeBackgroundColor());
+    }
+
+    IEnumerator ChangeBackgroundColor()
+    {
+        levelBorder.color = Color.cyan;
+        yield return new WaitForSeconds(0.125f);
+        levelBorder.color = Color.white;
     }
 }
