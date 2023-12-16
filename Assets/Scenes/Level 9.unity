@@ -5078,6 +5078,7 @@ MonoBehaviour:
   gravDown: 0
   level: 0
   levelComplete: 0
+  winJingle: {fileID: 0}
 --- !u!4 &1696333105
 Transform:
   m_ObjectHideFlags: 0
@@ -5470,7 +5471,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8941631544901770676, guid: c8924e64ddb1cd142820084facc34b5b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 0.98
       objectReference: {fileID: 0}
     - target: {fileID: 8941631544901770676, guid: c8924e64ddb1cd142820084facc34b5b, type: 3}
       propertyPath: m_LocalPosition.z

@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     AudioSource s;
     public AudioClip gravitySound;
     public AudioClip landingSound;
+    public AudioClip bounceSound;
     private SpriteRenderer sr;
     public bool changedGravity;
 
@@ -36,9 +37,13 @@ public class PlayerController : MonoBehaviour
             ChangeGravity();
         }
 
-        if (Input.GetKeyUp(KeyCode.R))
+        if (Input.GetKeyUp(KeyCode.R) && !m.levelComplete)
         {
             m.RestartLevel();
+        }
+        if (Input.GetKeyUp(KeyCode.Escape) && !m.levelComplete)
+        {
+            m.ResetGame(); // Go back to the title screen
         }
     }
 
@@ -110,7 +115,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Platform") && !m.levelComplete && (rb.velocity.magnitude <= 2.0f))
+        if ((collision.gameObject.CompareTag("Platform") || collision.gameObject.CompareTag("OWPlatform")) && !m.levelComplete && (rb.velocity.magnitude <= 2.0f))
         {
             canChangeGravity = true;
             changedGravity = false;
@@ -124,19 +129,9 @@ public class PlayerController : MonoBehaviour
                 s.PlayOneShot(landingSound, 1.0f);
             }
         }
-        else if (collision.gameObject.CompareTag("OWPlatform") && !m.levelComplete && (rb.velocity.magnitude <= 2.0f))
+        else if (collision.gameObject.CompareTag("Bouncy Platform") && (rb.velocity.magnitude >= 2.0f))
         {
-            canChangeGravity = true;
-            changedGravity = false;
-            if (s.isPlaying)
-            {
-                s.Stop();
-                s.PlayOneShot(landingSound, 1.0f); // to prevent double sound playing if colliding with two platforms at once
-            }
-            else
-            {
-                s.PlayOneShot(landingSound, 1.0f);
-            }
+            s.PlayOneShot(bounceSound, 1.0f);
         }
     }
 

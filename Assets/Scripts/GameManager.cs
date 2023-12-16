@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public int level;
     public bool levelComplete;
     AudioSource s;
+    public AudioClip winJingle;
 
     // Start is called before the first frame update
     void Start()
@@ -30,6 +31,10 @@ public class GameManager : MonoBehaviour
         if (level == 0)
         {
             s.Play();
+        }
+        else if (level == 11)
+        {
+            s.PlayOneShot(winJingle, 1.0f);
         }
         // Different gravity settings for each level
         else if (level == 1 || level == 3 || level == 6 || level == 7 || level == 9 || level == 10)
@@ -49,23 +54,6 @@ public class GameManager : MonoBehaviour
             SetGravityUp();
         }
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyUp(KeyCode.Escape))
-        {
-            if (level != 0) // Go back to the title screen
-            {
-                ResetGame();
-            }
-            else
-            {
-                Application.Quit();
-            }
-        }
-    }
-
     public void SetGravityLeft()
     {
         Physics2D.gravity = gravityLeft * gravityMultiplier;
@@ -110,5 +98,13 @@ public class GameManager : MonoBehaviour
     public void ResetGame()
     {
         SceneManager.LoadScene(0);
+    }
+    public void LoadLevel(int level)
+    {
+        SceneManager.LoadScene(level);
+    }
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }

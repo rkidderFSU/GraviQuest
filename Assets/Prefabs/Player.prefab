@@ -177,6 +177,7 @@ MonoBehaviour:
   canChangeGravity: 0
   gravitySound: {fileID: 8300000, guid: dd28fb9cf536db348b5493e607ecdacf, type: 3}
   landingSound: {fileID: 8300000, guid: 86676e7c608a9a14e8d5883dba107feb, type: 3}
+  bounceSound: {fileID: 8300000, guid: 8be0f713bf8a67042899a9a2df1e4c43, type: 3}
   changedGravity: 0
 --- !u!82 &6172733217630223049
 AudioSource:
