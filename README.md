@@ -35,3 +35,5 @@ Tuesday, 12/12 - Fixed the build rendering bug.
 Wednesday, 12/13 - Made level 5 better and the Flipper now displays time down to the hundredth of a second.
 
 Thursday, 12/14 - Made levels 9 and 10, which have new bouncy platforms, and the Win Screen. Made "Round and round we go" level more forgiving. Gravity Flipper now has a visual effect on the level border. Also reordered some levels for better progression.
+
+Friday, 12/15 - Added a little jingle that plays on the win screen. Also added a level select menu to the main menu, and a single spike to level 8 to prevent skipping 90% of the level. Added more spikes to level 10 to force the player in the intended direction.
